@@ -5,16 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
+import javax.swing.*;
 
 public class SwingApp extends JFrame {
 	public SwingApp() {
 		setSize(600, 400);
 		setTitle("Moja aplikacja Swing");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		setLayout(new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS));
 	}
 
 	public static void main(String[] args) {
@@ -23,14 +21,10 @@ public class SwingApp extends JFrame {
 		
 		
 		Integer[] data = {1, 2, 3, 4, 5};
-		
-		JList<Integer> list = new JList<Integer> (data); //data has type Object[]
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setVisibleRowCount(3);
 
-		JScrollPane listScroller = new JScrollPane(list);
-		simple.add(listScroller);
+		JComboBox staticList = new JComboBox(data);
+		staticList.setSelectedIndex(1);
+		simple.add(staticList);
 
 		Integer[] randomData = new Integer[20];
 
@@ -42,13 +36,12 @@ public class SwingApp extends JFrame {
 			randomData[i] = generator.nextInt(high - low);
 		}
 
-		JList<Integer> list2 = new JList<Integer> (randomData); //data has type Object[]
-		list.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
-		list.setLayoutOrientation(JList.HORIZONTAL_WRAP);
-		list.setVisibleRowCount(3);
+		JComboBox secondList = new JComboBox(randomData);
+		staticList.setSelectedIndex(1);
+		simple.add(secondList);
 
-		JScrollPane listScroller2 = new JScrollPane(list2);
-		simple.add(listScroller2);
+		JButton jButton = new JButton("OK");
+		simple.add(jButton);
 		
 		simple.setVisible(true);
 	}

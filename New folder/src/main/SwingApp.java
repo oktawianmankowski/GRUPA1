@@ -43,6 +43,7 @@ public class SwingApp extends JFrame {
 		simple.add(jButton);
 
 		JLabel label = new JLabel("0");
+		simple.add(label);
 		
 		simple.setVisible(true);
 	}

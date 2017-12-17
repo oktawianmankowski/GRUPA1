@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -42,6 +41,8 @@ public class SwingApp extends JFrame {
 
 		JButton jButton = new JButton("OK");
 		simple.add(jButton);
+
+		JLabel label = new JLabel("0");
 		
 		simple.setVisible(true);
 	}

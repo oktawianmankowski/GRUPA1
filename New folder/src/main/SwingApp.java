@@ -52,11 +52,11 @@ public class SwingApp extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				String firstSelect = staticList.getSelectedItem().toString();
-				int firstSlc = Integer.parseInt(firstSelect);
+				int firstSl = Integer.parseInt(firstSelect);
 
 				String secondSelect = secondList.getSelectedItem().toString();
 				int secondSlc = Integer.parseInt(secondSelect);
-				int result = firstSlc * secondSlc;
+				int result = firstSl * secondSlc;
 				label.setText(new Integer(result).toString());
 			}
 		});

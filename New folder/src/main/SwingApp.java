@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -43,6 +45,22 @@ public class SwingApp extends JFrame {
 		simple.add(jButton);
 
 		JLabel label = new JLabel("0");
+		simple.add(label);
+
+		jButton.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				String firstSelect = staticList.getSelectedItem().toString();
+				int firstSl = Integer.parseInt(firstSelect);
+
+				String secondSelect = secondList.getSelectedItem().toString();
+				int secondSlc = Integer.parseInt(secondSelect);
+				int result = firstSl * secondSlc;
+				label.setText(new Integer(result).toString());
+			}
+		});
+
 		
 		simple.setVisible(true);
 	}

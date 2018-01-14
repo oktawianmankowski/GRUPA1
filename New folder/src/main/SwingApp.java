@@ -20,7 +20,7 @@ public class SwingApp extends JFrame {
 		SwingApp simple = new SwingApp();
 
 		
-		
+		//Lista rozwijana1
 		Integer[] data = {1, 2, 3, 4, 5};
 
 		JComboBox staticList = new JComboBox(data);

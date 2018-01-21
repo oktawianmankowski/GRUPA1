@@ -2,6 +2,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.Random;
 
 public class SwingApp extends JFrame{
@@ -42,24 +44,57 @@ public class SwingApp extends JFrame{
 
         label = new JLabel("Cena netto:");
         add(label);
-        
 
-//        jButton.addActionListener(new ActionListener() {
-//            public void actionPerformed(ActionEvent e) {
-//                String firstSelect = staticList.getSelectedItem().toString();
-//                int firstSlc = Integer.parseInt(firstSelect);
-//
-//                String secondSelect = secondList.getSelectedItem().toString();
-//                int secondSlc = Integer.parseInt(secondSelect);
-//                int result = multiple(firstSlc,  secondSlc);
-//                label.setText(new Integer(result).toString());
-//            }
-//        });
+
+        jButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String productSelect = productList.getSelectedItem().toString();
+
+                String stateSelect = stateList.getSelectedItem().toString();
+
+                try {
+                    double priceBrutto = Double.parseDouble(price.getText());
+                    if (priceBrutto <= 0){
+                        throw new IllegalArgumentException();
+                    }
+                    BigDecimal nettoPrice = calculateNettoPrice(productSelect, stateSelect, priceBrutto);
+                    label.setText(NumberFormat.getCurrencyInstance().format(nettoPrice));
+                }
+                catch (Exception exp){
+                    label.setText("Niepoprawna cena");
+                }
+
+            }
+        });
 
 
         setVisible(true);
 
         }
+
+    private BigDecimal calculateNettoPrice(String productSelect, String stateSelect, double price) {
+        double tax = 0;
+        switch (stateSelect) {
+            case "Alaska":
+                tax = 0;
+                break;
+            case "Alabama":
+                tax = 0.04;
+                break;
+            case "Kentucky":
+                tax = 0.06;
+                break;
+        }
+
+        BigDecimal netto = BigDecimal.valueOf(calculate(price, tax));
+
+        return netto;
+
+    }
+
+    private double calculate(double price, double tax) {
+        return price/(1+tax);
+    }
 
     public static int multiple(int firstSlc, int secondSlc) {
         return firstSlc * secondSlc;

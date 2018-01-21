@@ -7,6 +7,7 @@ import java.util.Random;
 public class SwingApp extends JFrame{
     private JComboBox productList;
     private JComboBox stateList;
+    private JTextField price;
     private JButton jButton;
     private JLabel label;
 
@@ -30,11 +31,18 @@ public class SwingApp extends JFrame{
         stateList.setSelectedIndex(1);
         add(stateList);
 
-        jButton = new JButton("OK");
+        JLabel priceBruttoLabel = new JLabel("Cena brutto:");
+        price = new JTextField();
+        add(priceBruttoLabel);
+        add(price);
+
+
+        jButton = new JButton("Przelicz");
         add(jButton);
 
-        label = new JLabel("0");
+        label = new JLabel("Cena netto:");
         add(label);
+        
 
 //        jButton.addActionListener(new ActionListener() {
 //            public void actionPerformed(ActionEvent e) {

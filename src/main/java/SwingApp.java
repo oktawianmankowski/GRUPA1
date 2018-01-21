@@ -21,7 +21,7 @@ public class SwingApp extends JFrame{
     }
 
     public void generateUi(){
-        String[] products = {"Ziemniaki", "Cebula", "Buraki"};
+        String[] products = {"Ziemniaki", "Cebula", "Buraki", "Ketonal", "Ibuprom"};
 
         productList = new JComboBox(products);
         productList.setSelectedIndex(1);
@@ -73,17 +73,43 @@ public class SwingApp extends JFrame{
         }
 
     private BigDecimal calculateNettoPrice(String productSelect, String stateSelect, double price) {
+
         double tax = 0;
+        String productType = "";
+        switch (productSelect) {
+            case "Ziemniaki":
+            case "Cebula":
+            case "Buraki":
+                productType = "Groceries";
+                break;
+            case "Ketanol":
+            case "Ibuprom":
+                productType = "Drug";
+
+
+        }
         switch (stateSelect) {
             case "Alaska":
                 tax = 0;
                 break;
             case "Alabama":
-                tax = 0.04;
-                break;
+                switch (productType){
+                    case "Drug":
+                        tax = 0;
+                        break;
+                    case "Groceries":
+                        tax = 0.04;
+                        break;
+                }
             case "Kentucky":
-                tax = 0.06;
-                break;
+                switch (productType){
+                    case "Drug":
+                        tax = 0;
+                        break;
+                    case "Groceries":
+                        tax = 0;
+                        break;
+                }
         }
 
         BigDecimal netto = BigDecimal.valueOf(calculate(price, tax));
@@ -92,7 +118,7 @@ public class SwingApp extends JFrame{
 
     }
 
-    private double calculate(double price, double tax) {
+    public static double calculate(double price, double tax) {
         return price/(1+tax);
     }
 

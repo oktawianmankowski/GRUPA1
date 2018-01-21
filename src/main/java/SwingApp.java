@@ -78,13 +78,20 @@ public class SwingApp extends JFrame{
         String productType = "";
         switch (productSelect) {
             case "Ziemniaki":
+                productType = "Groceries";
+                break;
             case "Cebula":
+                productType = "Groceries";
+                break;
             case "Buraki":
                 productType = "Groceries";
                 break;
             case "Ketanol":
+                productType = "Drug";
+                break;
             case "Ibuprom":
                 productType = "Drug";
+                break;
 
 
         }
@@ -101,6 +108,7 @@ public class SwingApp extends JFrame{
                         tax = 0.04;
                         break;
                 }
+                break;
             case "Kentucky":
                 switch (productType){
                     case "Drug":
@@ -110,6 +118,7 @@ public class SwingApp extends JFrame{
                         tax = 0;
                         break;
                 }
+                break;
         }
 
         BigDecimal netto = BigDecimal.valueOf(calculate(price, tax));

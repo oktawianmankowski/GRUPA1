@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_windowapp" default="compile.module.windowapp">
+  <dirname property="module.windowapp.basedir" file="${ant.file.module_windowapp}"/>
+  
+  <property name="module.jdk.home.windowapp" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.windowapp" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.windowapp" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.windowapp" value="-encoding UTF-8 -source 1.5 -target 1.5 ${compiler.args}"/>
+  
+  <property name="windowapp.output.dir" value="${module.windowapp.basedir}/target/classes"/>
+  <property name="windowapp.testoutput.dir" value="${module.windowapp.basedir}/target/test-classes"/>
+  
+  <path id="windowapp.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="windowapp.module.production.classpath">
+    <path refid="${module.jdk.classpath.windowapp}"/>
+  </path>
+  
+  <path id="windowapp.runtime.production.module.classpath">
+    <pathelement location="${windowapp.output.dir}"/>
+  </path>
+  
+  <path id="windowapp.module.classpath">
+    <path refid="${module.jdk.classpath.windowapp}"/>
+    <pathelement location="${windowapp.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  <path id="windowapp.runtime.module.classpath">
+    <pathelement location="${windowapp.testoutput.dir}"/>
+    <pathelement location="${windowapp.output.dir}"/>
+    <path refid="library.maven:_junit:junit:4.12.classpath"/>
+    <path refid="library.maven:_org.hamcrest:hamcrest-core:1.3.classpath"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.windowapp">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.windowapp">
+    <patternset refid="excluded.from.module.windowapp"/>
+  </patternset>
+  
+  <path id="windowapp.module.sourcepath">
+    <dirset dir="${module.windowapp.basedir}">
+      <include name="src/main/java"/>
+      <include name="src/main/resources"/>
+    </dirset>
+  </path>
+  
+  <path id="windowapp.module.test.sourcepath">
+    <dirset dir="${module.windowapp.basedir}">
+      <include name="src/test/java"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.windowapp" depends="compile.module.windowapp.production,compile.module.windowapp.tests" description="Compile module WindowApp"/>
+  
+  <target name="compile.module.windowapp.production" depends="register.custom.compilers" description="Compile module WindowApp; production classes">
+    <mkdir dir="${windowapp.output.dir}"/>
+    <javac2 destdir="${windowapp.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.windowapp}/javac">
+      <compilerarg line="${compiler.args.windowapp}"/>
+      <bootclasspath refid="windowapp.module.bootclasspath"/>
+      <classpath refid="windowapp.module.production.classpath"/>
+      <src refid="windowapp.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.windowapp"/>
+    </javac2>
+    
+    <copy todir="${windowapp.output.dir}">
+      <fileset dir="${module.windowapp.basedir}/src/main/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+      <fileset dir="${module.windowapp.basedir}/src/main/resources">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.windowapp.tests" depends="register.custom.compilers,compile.module.windowapp.production" description="compile module WindowApp; test classes" unless="skip.tests">
+    <mkdir dir="${windowapp.testoutput.dir}"/>
+    <javac2 destdir="${windowapp.testoutput.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.windowapp}/javac">
+      <compilerarg line="${compiler.args.windowapp}"/>
+      <bootclasspath refid="windowapp.module.bootclasspath"/>
+      <classpath refid="windowapp.module.classpath"/>
+      <src refid="windowapp.module.test.sourcepath"/>
+      <patternset refid="excluded.from.compilation.windowapp"/>
+    </javac2>
+    
+    <copy todir="${windowapp.testoutput.dir}">
+      <fileset dir="${module.windowapp.basedir}/src/test/java">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="clean.module.windowapp" description="cleanup module">
+    <delete dir="${windowapp.output.dir}"/>
+    <delete dir="${windowapp.testoutput.dir}"/>
+  </target>
+</project>

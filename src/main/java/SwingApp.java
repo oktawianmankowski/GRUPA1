@@ -61,7 +61,7 @@ public class SwingApp extends JFrame{
 
         }
 
-    private int multiple(int firstSlc, int secondSlc) {
+    public int multiple(int firstSlc, int secondSlc) {
         return firstSlc * secondSlc;
     }
 

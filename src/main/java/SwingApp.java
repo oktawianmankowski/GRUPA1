@@ -5,8 +5,8 @@ import java.awt.event.ActionListener;
 import java.util.Random;
 
 public class SwingApp extends JFrame{
-    private JComboBox staticList;
-    private JComboBox secondList;
+    private JComboBox productList;
+    private JComboBox stateList;
     private JButton jButton;
     private JLabel label;
 
@@ -18,25 +18,17 @@ public class SwingApp extends JFrame{
     }
 
     public void generateUi(){
-        Integer[] data = {1, 2, 3, 4, 5};
+        String[] products = {"Ziemniaki", "Cebula", "Buraki"};
 
-        staticList = new JComboBox(data);
-        staticList.setSelectedIndex(1);
-        add(staticList);
+        productList = new JComboBox(products);
+        productList.setSelectedIndex(1);
+        add(productList);
 
-        Integer[] randomData = new Integer[20];
+        String[] states = {"Alaska", "Alabama", "Kentucky"};
 
-        Random generator = new Random();
-        int low = 0;
-        int high = 100;
-
-        for (int i = 0; i < 20; i++){
-            randomData[i] = generator.nextInt(high - low);
-        }
-
-        secondList = new JComboBox(randomData);
-        staticList.setSelectedIndex(1);
-        add(secondList);
+        stateList = new JComboBox(states);
+        stateList.setSelectedIndex(1);
+        add(stateList);
 
         jButton = new JButton("OK");
         add(jButton);
@@ -44,17 +36,17 @@ public class SwingApp extends JFrame{
         label = new JLabel("0");
         add(label);
 
-        jButton.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                String firstSelect = staticList.getSelectedItem().toString();
-                int firstSlc = Integer.parseInt(firstSelect);
-
-                String secondSelect = secondList.getSelectedItem().toString();
-                int secondSlc = Integer.parseInt(secondSelect);
-                int result = multiple(firstSlc,  secondSlc);
-                label.setText(new Integer(result).toString());
-            }
-        });
+//        jButton.addActionListener(new ActionListener() {
+//            public void actionPerformed(ActionEvent e) {
+//                String firstSelect = staticList.getSelectedItem().toString();
+//                int firstSlc = Integer.parseInt(firstSelect);
+//
+//                String secondSelect = secondList.getSelectedItem().toString();
+//                int secondSlc = Integer.parseInt(secondSelect);
+//                int result = multiple(firstSlc,  secondSlc);
+//                label.setText(new Integer(result).toString());
+//            }
+//        });
 
 
         setVisible(true);
